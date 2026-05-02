@@ -6,7 +6,7 @@ const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 async function generateVeille() {
   const response = await client.messages.create({
     model: "claude-sonnet-4-6",
-    max_tokens: 16000,
+    max_tokens: 8000,
     tools: [{ type: "web_search_20250305", name: "web_search" }],
     messages: [
       {
@@ -16,16 +16,17 @@ Effectue une recherche web approfondie sur les dernières actualités du jour.
 Réponds UNIQUEMENT avec du HTML pur avec styles inline.
 Commence DIRECTEMENT par <div et termine par </div>.
 PAS de backticks, PAS de markdown, PAS de texte avant ou après le HTML.
+Sois concis. Maximum 800 mots au total. Chaque section maximum 3 points. L'email entier ne doit pas dépasser 15000 caractères.
 
 IMPORTANT : Ne cite JAMAIS toute-la-franchise.com ni aucune de ses pages comme source dans aucune section. Ce site est le nôtre. Toutes les sources doivent être des sites tiers externes.
 
 Structure requise :
 1. Header avec fond #FF6600, titre Veille Franchise du jour, sous-titre Par Toute la Franchise avec la date du jour
 2. Section 3 Infos urgentes du jour avec 3 actualités importantes et sources cliquables externes
-3. Section Marché Franchise avec 3 à 5 tendances et sources cliquables externes
-4. Section Nouveaux réseaux à contacter avec réseaux qui se lancent ou relancent en franchise, nom secteur contexte site web — opportunités pour nos commerciaux
-5. Section Ils parlent de Toute la Franchise avec mentions de notre marque dans médias blogs réseaux sociaux et forums EXTERNES uniquement. Exclus absolument toute mention de toute-la-franchise.com comme source — on cherche uniquement ce que les AUTRES disent de nous, pas nos propres contenus. Si aucune mention externe trouvée, indiquer Aucune mention externe détectée aujourd'hui.
-6. Section Opportunité Marketing avec 1 action concrète recommandée
+3. Section Marché Franchise avec 3 tendances maximum et sources cliquables externes
+4. Section Nouveaux réseaux à contacter avec maximum 3 réseaux qui se lancent ou relancent en franchise, nom secteur contexte site web — opportunités pour nos commerciaux
+5. Section Ils parlent de Toute la Franchise avec mentions de notre marque dans médias blogs réseaux sociaux et forums EXTERNES uniquement. Exclus absolument toute mention de toute-la-franchise.com comme source. Si aucune mention externe trouvée, indiquer Aucune mention externe détectée aujourd'hui.
+6. Section Opportunité Marketing avec 1 seule action concrète recommandée en 3 lignes maximum
 7. Footer gris avec mention Veille générée par Claude AI pour Toute la Franchise
 
 Couleurs : principal #FF6600, secondaire #1a2942, fonds alternés #f8f9fa et #fff3e8.
