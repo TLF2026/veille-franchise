@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "crons": [
+    {
+      "path": "/api/veille",
+      "schedule": "0 6 * * 1-5"
+    }
+  ],
+  "env": {
+    "ANTHROPIC_API_KEY": "@anthropic_api_key",
+    "GMAIL_USER": "@gmail_user",
+    "GMAIL_APP_PASSWORD": "@gmail_app_password",
+    "EMAIL_RECIPIENTS": "@email_recipients",
+    "CRON_SECRET": "@cron_secret"
+  }
+}
