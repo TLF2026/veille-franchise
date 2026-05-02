@@ -17,12 +17,14 @@ Réponds UNIQUEMENT avec du HTML pur avec styles inline.
 Commence DIRECTEMENT par <div et termine par </div>.
 PAS de backticks, PAS de markdown, PAS de texte avant ou après le HTML.
 
+IMPORTANT : Ne cite JAMAIS toute-la-franchise.com ni aucune de ses pages comme source dans aucune section. Ce site est le nôtre. Toutes les sources doivent être des sites tiers externes.
+
 Structure requise :
 1. Header avec fond #FF6600, titre Veille Franchise du jour, sous-titre Par Toute la Franchise avec la date du jour
-2. Section 3 Infos urgentes du jour avec 3 actualités importantes et sources cliquables
-3. Section Marché Franchise avec 3 à 5 tendances et sources cliquables
-4. Section Nouveaux réseaux à contacter avec réseaux qui se lancent ou relancent en franchise, nom secteur contexte site web
-5. Section Ils parlent de Toute la Franchise avec mentions dans médias blogs réseaux
+2. Section 3 Infos urgentes du jour avec 3 actualités importantes et sources cliquables externes
+3. Section Marché Franchise avec 3 à 5 tendances et sources cliquables externes
+4. Section Nouveaux réseaux à contacter avec réseaux qui se lancent ou relancent en franchise, nom secteur contexte site web — opportunités pour nos commerciaux
+5. Section Ils parlent de Toute la Franchise avec mentions de notre marque dans médias blogs réseaux sociaux et forums EXTERNES uniquement. Exclus absolument toute mention de toute-la-franchise.com comme source — on cherche uniquement ce que les AUTRES disent de nous, pas nos propres contenus. Si aucune mention externe trouvée, indiquer Aucune mention externe détectée aujourd'hui.
 6. Section Opportunité Marketing avec 1 action concrète recommandée
 7. Footer gris avec mention Veille générée par Claude AI pour Toute la Franchise
 
