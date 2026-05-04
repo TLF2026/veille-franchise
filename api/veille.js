@@ -18,19 +18,37 @@ Commence DIRECTEMENT par <div et termine par </div>.
 PAS de backticks, PAS de markdown, PAS de texte avant ou après le HTML.
 Sois concis. Maximum 800 mots au total. Chaque section maximum 3 points. L'email entier ne doit pas dépasser 15000 caractères.
 
-IMPORTANT : Ne cite JAMAIS toute-la-franchise.com ni aucune de ses pages comme source dans aucune section. Ce site est le nôtre. Toutes les sources doivent être des sites tiers externes.
+IMPORTANT : Ne cite JAMAIS toute-la-franchise.com ni aucune de ses pages comme source. Toutes les sources doivent être des sites tiers externes.
 
-Structure requise :
-1. Header avec fond #FF6600, titre Veille Franchise du jour, sous-titre Par Toute la Franchise avec la date du jour
-2. Section 3 Infos urgentes du jour avec 3 actualités importantes et sources cliquables externes
-3. Section Marché Franchise avec 3 tendances maximum et sources cliquables externes
-4. Section Nouveaux réseaux à contacter avec maximum 3 réseaux qui se lancent ou relancent en franchise, nom secteur contexte site web — opportunités pour nos commerciaux
-5. Section Ils parlent de Toute la Franchise avec mentions de notre marque dans médias blogs réseaux sociaux et forums EXTERNES uniquement. Exclus absolument toute mention de toute-la-franchise.com comme source. Si aucune mention externe trouvée, indiquer Aucune mention externe détectée aujourd'hui.
-6. Section Opportunité Marketing avec 1 seule action concrète recommandée en 3 lignes maximum
-7. Footer gris avec mention Veille générée par Claude AI pour Toute la Franchise
+Charte graphique TLF à respecter :
+- Police : Lato (Google Fonts), fallback Arial
+- Couleur jaune principale : #F9BE28
+- Couleur framboise : #C9316A
+- Couleur texte : #2C2C2C
+- Fond principal : #FFFFFF
+- Fond secondaire : #F0F0F0
+- Fond neutre : #DCDCDC
+- Textes secondaires : #989898
 
-Couleurs : principal #FF6600, secondaire #1a2942, fonds alternés #f8f9fa et #fff3e8.
-max-width 600px, font-family Arial sans-serif, styles inline sur chaque élément.`,
+Structure de l'email :
+
+HEADER : fond #2C2C2C, logo TLF en image (https://www.toute-la-franchise.com/images/logo-tlf.png), padding 20px, text-align center. Sous le logo : titre "Veille Franchise" en Lato Bold blanc 22px. Date du jour en Lato Light blanc 13px.
+
+BANDEAU JAUNE : fond #F9BE28, texte #2C2C2C, Lato Black, padding 10px 20px, texte "📰 Veille concurrentielle — usage interne".
+
+Section 1 — 🔴 3 Infos urgentes du jour : fond blanc, titre Lato Bold #2C2C2C 16px avec barre gauche 4px solide #F9BE28, 3 infos en paragraphes avec source en lien #C9316A.
+
+Section 2 — 📊 Marché Franchise : fond #F0F0F0, même style titre, 3 points en ul li, texte #2C2C2C, source en lien #C9316A.
+
+Section 3 — 🚀 Nouveaux réseaux à contacter : fond blanc, bordure gauche #C9316A 4px, titre Lato Bold #C9316A, liste ul li avec Nom en bold, Secteur, Contexte, Site web cliquable. Si aucun : "Aucun nouveau réseau détecté aujourd'hui". Note en italic #989898 : "Opportunités commerciales pour nos équipes".
+
+Section 4 — 📣 Ils parlent de Toute la Franchise : fond #F0F0F0, titre Lato Bold #2C2C2C, liste ul li avec source externe et lien cliquable #C9316A. Si aucune mention : "Aucune mention externe détectée aujourd'hui".
+
+Section 5 — 🎯 Opportunité Marketing : fond #F9BE28, texte #2C2C2C, titre Lato Black 16px, 1 action concrète en paragraphe Lato Bold, maximum 3 lignes.
+
+FOOTER : fond #2C2C2C, texte #989898 Lato Light 11px centré. Texte : "Veille générée automatiquement par Claude AI pour Toute la Franchise · Usage interne uniquement · Données issues de sources tierces publiques".
+
+max-width 600px, font-family: 'Lato', Arial, sans-serif. Importer Lato via : <link href='https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap' rel='stylesheet'> dans le style.`,
       },
     ],
   });
@@ -65,14 +83,16 @@ async function sendEmail(html) {
   await transport.sendMail({
     from: `"Veille TLF" <${process.env.GMAIL_USER}>`,
     to: process.env.EMAIL_RECIPIENTS,
-    subject: `Veille Franchise - ${today}`,
+    subject: `📰 Veille Franchise TLF - ${today}`,
     html: html,
   });
 }
 
 module.exports = async (req, res) => {
   const token = req.headers["x-cron-token"] || req.query.token;
-  if (token !== process.env.CRON_SECRET) {
+  const isVercelCron = req.headers["x-vercel-cron"] === "1";
+
+  if (!isVercelCron && token !== process.env.CRON_SECRET) {
     return res.status(401).json({ error: "Non autorisé" });
   }
 
