@@ -6,49 +6,28 @@ const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 async function generateVeille() {
   const response = await client.messages.create({
     model: "claude-sonnet-4-6",
-    max_tokens: 8000,
+    max_tokens: 4000,
     tools: [{ type: "web_search_20250305", name: "web_search" }],
     messages: [
       {
         role: "user",
-        content: `Tu es un assistant de veille marketing spécialisé dans le secteur de la franchise en France. 
-Effectue une recherche web approfondie sur les dernières actualités du jour.
-Réponds UNIQUEMENT avec du HTML pur avec styles inline.
-Commence DIRECTEMENT par <div et termine par </div>.
-PAS de backticks, PAS de markdown, PAS de texte avant ou après le HTML.
-Sois concis. Maximum 800 mots au total. Chaque section maximum 3 points. L'email entier ne doit pas dépasser 15000 caractères.
+        content: `Fais une recherche web sur les actualités franchise France du jour. Génère un email HTML inline styles, max 8000 caractères total. Commence par <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#ffffff;"> et termine par </div>. PAS de backticks.
 
-IMPORTANT : Ne cite JAMAIS toute-la-franchise.com ni aucune de ses pages comme source. Toutes les sources doivent être des sites tiers externes.
+IMPORTANT : jamais toute-la-franchise.com comme source.
 
-Charte graphique TLF à respecter :
-- Police : Lato (Google Fonts), fallback Arial
-- Couleur jaune principale : #F9BE28
-- Couleur framboise : #C9316A
-- Couleur texte : #2C2C2C
-- Fond principal : #FFFFFF
-- Fond secondaire : #F0F0F0
-- Fond neutre : #DCDCDC
-- Textes secondaires : #989898
+Structure COURTE :
 
-Structure de l'email :
+1. HEADER fond #2C2C2C padding 20px text-align center : img src="https://www.toute-la-franchise.com/images/logo-tlf.png" height=50 + titre "Veille Franchise" color blanc Lato Bold 20px + date du jour color #989898 12px.
 
-HEADER : fond #2C2C2C, logo TLF en image (https://www.toute-la-franchise.com/images/logo-tlf.png), padding 20px, text-align center. Sous le logo : titre "Veille Franchise" en Lato Bold blanc 22px. Date du jour en Lato Light blanc 13px.
+2. BANDEAU fond #F9BE28 padding 8px 20px : texte "📰 Veille concurrentielle — usage interne" color #2C2C2C bold 12px.
 
-BANDEAU JAUNE : fond #F9BE28, texte #2C2C2C, Lato Black, padding 10px 20px, texte "📰 Veille concurrentielle — usage interne".
+3. Section "🔴 Infos du jour" fond blanc padding 16px 20px : titre bold #2C2C2C border-left 4px solid #F9BE28 padding-left 10px. MAX 3 infos courtes en p avec lien source color #C9316A.
 
-Section 1 — 🔴 3 Infos urgentes du jour : fond blanc, titre Lato Bold #2C2C2C 16px avec barre gauche 4px solide #F9BE28, 3 infos en paragraphes avec source en lien #C9316A.
+4. Section "🚀 Nouveaux réseaux" fond #F0F0F0 padding 16px 20px : titre bold #C9316A. MAX 3 réseaux en ul li format "Nom — Secteur — Contexte" avec lien. Si aucun : "Aucun détecté aujourd'hui".
 
-Section 2 — 📊 Marché Franchise : fond #F0F0F0, même style titre, 3 points en ul li, texte #2C2C2C, source en lien #C9316A.
+5. Section "🎯 Opportunité" fond #F9BE28 padding 16px 20px : titre Lato Black #2C2C2C. 2 lignes max d'action concrète.
 
-Section 3 — 🚀 Nouveaux réseaux à contacter : fond blanc, bordure gauche #C9316A 4px, titre Lato Bold #C9316A, liste ul li avec Nom en bold, Secteur, Contexte, Site web cliquable. Si aucun : "Aucun nouveau réseau détecté aujourd'hui". Note en italic #989898 : "Opportunités commerciales pour nos équipes".
-
-Section 4 — 📣 Ils parlent de Toute la Franchise : fond #F0F0F0, titre Lato Bold #2C2C2C, liste ul li avec source externe et lien cliquable #C9316A. Si aucune mention : "Aucune mention externe détectée aujourd'hui".
-
-Section 5 — 🎯 Opportunité Marketing : fond #F9BE28, texte #2C2C2C, titre Lato Black 16px, 1 action concrète en paragraphe Lato Bold, maximum 3 lignes.
-
-FOOTER : fond #2C2C2C, texte #989898 Lato Light 11px centré. Texte : "Veille générée automatiquement par Claude AI pour Toute la Franchise · Usage interne uniquement · Données issues de sources tierces publiques".
-
-max-width 600px, font-family: 'Lato', Arial, sans-serif. Importer Lato via : <link href='https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap' rel='stylesheet'> dans le style.`,
+6. FOOTER fond #2C2C2C padding 12px text-align center : "Veille Claude AI pour Toute la Franchise · Usage interne" color #989898 10px.`,
       },
     ],
   });
